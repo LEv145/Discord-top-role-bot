@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "discord-top-role-bot"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = ["LEv145 <you@example.com>"]
 license = "MIT"
@@ -11,8 +11,9 @@ packages = [{include = "discord_top_role_bot", from = "src"}]
 python = ">=3.10,<3.12"
 hikari = "^2.0.0.dev112"
 hikari-tanjun = "^2.10.1a1"
-toml = "^0.10.2"
 dataconf = "^2.1.2"
+sqlalchemy = "^1.4.44"
+sqlalchemy2-stubs = "^0.0.2a29"
 
 
 [build-system]

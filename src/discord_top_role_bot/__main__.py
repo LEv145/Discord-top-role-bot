@@ -1,12 +1,12 @@
 import hikari
 
-from .config import TomlConfigParser
+from .config import EnvConfigParser
 
 
 def main() -> None:
-    config = TomlConfigParser(...).parse()  # type: ignore
-
+    config = EnvConfigParser(prefix="DTRB").parse()
     bot = hikari.GatewayBot(token=config.bot.token)
+
     bot.run()
 
 

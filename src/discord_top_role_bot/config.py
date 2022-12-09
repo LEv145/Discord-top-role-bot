@@ -1,8 +1,6 @@
 import abc
 from dataclasses import dataclass
-from pathlib import Path
 
-import toml
 import dataconf
 
 
@@ -12,14 +10,12 @@ class ABCConfigParser(abc.ABC):
         pass
 
 
-class TomlConfigParser(ABCConfigParser):
-    def __init__(self, path: Path) -> None:
-        self._path = path
+class EnvConfigParser(ABCConfigParser):
+    def __init__(self, prefix: str) -> None:
+        self._prefix = prefix
 
     def parse(self) -> "BaseConfig":
-        data = toml.load(self._path)
-        config: BaseConfig = dataconf.dict(data, BaseConfig)  # type: ignore
-        return config
+        return dataconf.env(self._prefix, BaseConfig)
 
 
 @dataclass

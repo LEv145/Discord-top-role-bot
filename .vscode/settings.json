@@ -1,7 +1,9 @@
 {
     "cSpell.words": [
         "dataconf",
+        "dtrb",
         "hikari",
-        "tanjun"
+        "sqlalchemy",
+        "sqltypes"
     ]
 }
