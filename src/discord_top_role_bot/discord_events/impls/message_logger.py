@@ -15,10 +15,9 @@ class MessageLoggerEvent(BaseEvent):
         super().__init__(bot=bot)
 
         self._message_repository = message_repository
-        self._bot.subscribe(  # TODO: Will be method?
-            event_type=GuildMessageCreateEvent,
-            callback=self._on_message,
-        )
+
+    def subscribe(self) -> None:
+        self._bot.subscribe(GuildMessageCreateEvent, self._on_message)
 
     async def _on_message(self, event: GuildMessageCreateEvent) -> None:
         if not event.is_human or event.message.content is None:

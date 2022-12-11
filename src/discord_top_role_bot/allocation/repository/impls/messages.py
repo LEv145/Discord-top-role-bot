@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import typing as t
 
-from sqlalchemy.sql import select
+from sqlalchemy.sql import func, select
 
 from ..abc import ABCMessagesRepository
 from ... import models
@@ -17,12 +17,17 @@ class SqlalchemyMessagesRepository(ABCMessagesRepository):
         self._session = session
 
     async def add(self, data: models.Message) -> None:
-        message = orm.Message(user_id=data.user_id, content=data.content)
-        self._session.add(message)
+        self._session.add(data)
 
     async def get(self, user_id: int) -> models.Message:
-        sql = select(orm.Message).where(orm.Message.user_id == user_id)
+        sql = orm.message_table.select().where(orm.message_table.c.user_id == user_id)
         scalar = await self._session.scalars(sql)
-        raw_message: orm.Message = scalar.one()
 
-        return models.Message(user_id=raw_message.user_id, content=raw_message.content)
+        return scalar.one()
+
+    async def get_user_top(self, count: int) -> None:
+        sql = select(
+            orm.message_table.c.user_id,
+            func.sum(orm.message_table.c.content),
+        ).group_by(orm.message_table.c.user_id)
+        scalar = await self._session.scalars(sql)

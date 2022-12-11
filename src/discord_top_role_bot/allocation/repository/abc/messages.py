@@ -14,5 +14,9 @@ class ABCMessagesRepository(abc.ABC):
         pass
 
     @abc.abstractmethod
-    async def get(self) -> Message:
+    async def get(self, user_id: int) -> Message:
+        pass
+
+    @abc.abstractmethod
+    async def get_user_top(self, count: int) -> None:
         pass

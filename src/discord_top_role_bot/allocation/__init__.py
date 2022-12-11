@@ -1,4 +1,3 @@
 from .models import Message
 from .repository import ABCMessagesRepository, SqlalchemyMessagesRepository
-
-# TODO: Import adapters?
+from .adapters.orm import sqlalchemy_metadata, message_table, start_mapper

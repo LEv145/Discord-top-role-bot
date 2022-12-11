@@ -10,10 +10,11 @@ packages = [{include = "discord_top_role_bot", from = "src"}]
 [tool.poetry.dependencies]
 python = ">=3.10,<3.12"
 hikari = "^2.0.0.dev112"
-hikari-tanjun = "^2.10.1a1"
 dataconf = "^2.1.2"
 sqlalchemy = "^1.4.44"
 sqlalchemy2-stubs = "^0.0.2a29"
+async-scheduler-object = "^1.1.0"
+asyncpg = "^0.27.0"
 
 
 [build-system]

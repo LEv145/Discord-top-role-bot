@@ -1,15 +1,22 @@
+from __future__ import annotations
+
 import typing as t
 
+from sqlalchemy.orm import mapper
 from sqlalchemy.sql import sqltypes, schema
-from sqlalchemy.orm import declarative_base
+
+from .. import models
 
 
-Base: t.Any = declarative_base()
+sqlalchemy_metadata = schema.MetaData()
+message_table = schema.Table(
+    "message",
+    sqlalchemy_metadata,
+    schema.Column("id", sqltypes.Integer, primary_key=True, autoincrement=True),
+    schema.Column("user_id", sqltypes.BigInteger, nullable=False),
+    schema.Column("content", sqltypes.String, nullable=False),
+)
 
 
-class Message(Base):
-    __tablename__ = "message"
-
-    id: int = schema.Column(sqltypes.Integer, primary_key=True, autoincrement=True)  # type: ignore
-    user_id: int = schema.Column(sqltypes.BigInteger, nullable=False)  # type: ignore
-    content: str = schema.Column(sqltypes.String, nullable=False)  # type: ignore
+def start_mapper() -> None:  # TODO: Maybe autorun
+    mapper(models.Message, message_table)

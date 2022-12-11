@@ -1,6 +1,6 @@
 import hikari
 
-from .config import EnvConfigParser
+from discord_top_role_bot.config import EnvConfigParser
 
 
 def main() -> None:
