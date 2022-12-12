@@ -21,7 +21,7 @@
             buildInputs = with super; [poetry];
           });
           hikari = super.hikari.overridePythonAttrs(old: {
-            src = pkgs.fetchFromGitHub {   # FIXME: https://github.com/hikari-py/hikari/issues/1399
+            src = pkgs.fetchFromGitHub {   # TODO: https://github.com/hikari-py/hikari/issues/1399
               repo = "hikari";
               owner = "hikari-py";
               rev = old.version;
@@ -41,6 +41,8 @@
         devShell = pkgs.mkShell {
           buildInputs = with pkgs; [poetry];
           inputsFrom = builtins.attrValues self.packages.${system};
+
+          PIP_DISABLE_PIP_VERSION_CHECK="1";  # TODO: https://github.com/NixOS/nixpkgs/pull/198024
         };
       }
     );
